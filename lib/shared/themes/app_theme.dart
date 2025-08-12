@@ -7,7 +7,7 @@ class AppTheme {
     brightness: Brightness.light,
     colorScheme: AppColorScheme.lightColorScheme,
     textTheme: AppTextTheme.textTheme,
-    scaffoldBackgroundColor: AppColorScheme.lightColorScheme.background,
+    scaffoldBackgroundColor: AppColorScheme.lightColorScheme.surface,
     appBarTheme: const AppBarTheme(elevation: 0),
     useMaterial3: true,
   );
@@ -16,7 +16,7 @@ class AppTheme {
     brightness: Brightness.dark,
     colorScheme: AppColorScheme.darkColorScheme,
     textTheme: AppTextTheme.textTheme,
-    scaffoldBackgroundColor: AppColorScheme.darkColorScheme.background,
+    scaffoldBackgroundColor: AppColorScheme.darkColorScheme.surface,
     appBarTheme: const AppBarTheme(elevation: 0),
     useMaterial3: true,
   );
