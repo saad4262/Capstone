@@ -33,8 +33,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,
-        themeMode:
-            themeController.isDarkMode.value ? ThemeMode.dark : ThemeMode.light,
+        themeMode:themeController.isDarkMode.value ? ThemeMode.dark : ThemeMode.light,
         initialRoute: AppRoutes.splash,
         getPages: AppPages.routes,
       ),

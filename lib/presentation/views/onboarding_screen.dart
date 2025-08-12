@@ -88,7 +88,7 @@ class OnboardingScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
+                  SizedBox(
                     width: Responsive.width(60),
                     height: Responsive.height(7),
                     child: ElevatedButton(
@@ -122,7 +122,7 @@ class OnboardingScreen extends StatelessWidget {
                   ),
                   SizedBox(height: Responsive.height(2)),
 
-                  Container(
+                  SizedBox(
                     width: Responsive.width(60),
                     height: Responsive.height(7),
                     child: ElevatedButton(

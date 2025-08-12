@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 class AppColors {
@@ -10,6 +8,6 @@ class AppColors {
   static const blueMain = Color(0xff1B27A1);
   static const secondaryBlue = Color(0xffD0E4FA);
   static const grey = Colors.grey;
-
-  
+  static const lightgrey = Color.fromARGB(248, 237, 235, 235);
+  static const bordergrey = Color.fromARGB(255, 224, 224, 224);
 }
