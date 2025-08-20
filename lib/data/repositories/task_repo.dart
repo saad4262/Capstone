@@ -13,4 +13,12 @@ class TaskRepository {
   Future<void> updateTask(Task task) => _taskService.updateTask(task);
 
   Future<void> deleteTask(String taskId) => _taskService.deleteTask(taskId);
+  
+  Stream<List<Task>> getTasksStreams() {
+    return _taskService.getTasksStream();
+  }
+
+  Future<void> updateTasksPositions(List<Task> tasks) {
+    return _taskService.updateTaskPositions(tasks);
+  }
 }

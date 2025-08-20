@@ -1,10 +1,12 @@
 import 'dart:io';
 
 import 'package:capstone/core/routes/app_routes.dart';
+import 'package:capstone/data/services/notification_service.dart';
 import 'package:capstone/domain/viewmodels/auth_controller.dart';
 import 'package:capstone/shared/constants/app_colors.dart';
 import 'package:capstone/shared/constants/app_images.dart';
 import 'package:capstone/shared/utils/responsive_utils.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -213,60 +215,121 @@ class _SignupViewState extends State<SignupView> {
                   ),
                 ),
                 SizedBox(height: Responsive.height(4)),
+
                 Obx(
-                  () => authController.isLoading.value
-                      ? const CircularProgressIndicator()
-                      : SizedBox(
-                          width: Responsive.width(60),
-                          height: Responsive.height(7),
+                  () => SizedBox(
+                    width: Responsive.width(60),
+                    height: Responsive.height(7),
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        // Button background aur style same
+                        Container(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                AppColors.gradientStart,
+                                AppColors.gradientEnd,
+                              ],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            ),
+                            borderRadius: BorderRadius.circular(
+                              Responsive.radius(30),
+                            ),
+                          ),
+                          width: double.infinity,
+                          height: double.infinity,
                           child: ElevatedButton(
-                            onPressed: () async {
-                              if (_formKey.currentState!.validate()) {
-                                final success = await authController.signUp(
-                                  _emailController.text.trim(),
-                                  _passwordController.text.trim(),
-                                  _nameController.text.trim(),
-                                );
-                                if (success) {
-                                  Get.offAllNamed(AppRoutes.task);
-                                } else {
-                                  Get.snackbar("Error", "Sign up failed");
-                                }
-                              }
-                            },
+                            onPressed: authController.isLoading.value
+                                ? null // isLoading ke time press na ho
+                                : () async {
+                                    if (_formKey.currentState!.validate()) {
+                                      authController.isLoading.value = true;
+
+                                      // Loader 2 second
+                                      await Future.delayed(
+                                        const Duration(seconds: 2),
+                                      );
+
+                                      // Sign up call
+                                      final success = await authController
+                                          .signUp(
+                                            _emailController.text.trim(),
+                                            _passwordController.text.trim(),
+                                            _nameController.text.trim(),
+                                          );
+
+                                      await AppNotificationService.saveDeviceToken();
+
+                                      authController.isLoading.value = false;
+
+                                      if (success) {
+                                        Get.offAllNamed(AppRoutes.home);
+                                      }
+                                    }
+                                  },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.blueMain,
+                              backgroundColor: Colors.transparent,
+                              shadowColor: Colors.transparent,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(
                                   Responsive.radius(30),
                                 ),
                               ),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: Responsive.padding(15),
-                                vertical: Responsive.padding(2),
-                              ),
                             ),
-                            child: const Text(
-                              "Sign Up",
-                              style: TextStyle(
-                                color: AppColors.white,
-                                fontFamily: 'Poppins',
-                              ),
-                            ),
+                            child: authController.isLoading.value
+                                ? const SizedBox.shrink() // Text hide loader ke waqt
+                                : const Text(
+                                    "Sign Up",
+                                    style: TextStyle(
+                                      color: AppColors.white,
+                                      fontFamily: 'Poppins',
+                                    ),
+                                  ),
                           ),
                         ),
+
+                        // Loader
+                        if (authController.isLoading.value)
+                          const SizedBox(
+                            width: 24,
+                            height: 24,
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                              strokeWidth: 2,
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
                 ),
+
                 SizedBox(height: Responsive.height(1.8)),
-                InkWell(
-                  onTap: () {
-                    Get.toNamed(AppRoutes.login);
-                  },
-                  child: Text(
-                    "Already have an account? Login",
+                RichText(
+                  text: TextSpan(
+                    text: "Already have an account ? ",
                     style: TextStyle(
                       fontSize: Responsive.fontSize(3.5),
                       fontFamily: 'Poppins',
+                      color: Colors.black, // ya theme ke hisaab se
                     ),
+                    children: [
+                      TextSpan(
+                        text: "Login",
+                        style: TextStyle(
+                          fontSize: Responsive.fontSize(3.5),
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.black, // alag color
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            // Login page navigate karne ka code yahan
+                            Get.toNamed(AppRoutes.login);
+                          },
+                      ),
+                    ],
                   ),
                 ),
 
@@ -275,11 +338,8 @@ class _SignupViewState extends State<SignupView> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    // Google Icon Button
                     ElevatedButton(
-                      onPressed: () {
-                        // Google sign-in logic here
-                      },
+                      onPressed: () {},
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.lightgrey,
                         shape: RoundedRectangleBorder(
@@ -300,9 +360,7 @@ class _SignupViewState extends State<SignupView> {
                     ),
 
                     ElevatedButton(
-                      onPressed: () {
-                        // Facebook sign-in logic here
-                      },
+                      onPressed: () {},
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.lightgrey,
                         shape: RoundedRectangleBorder(

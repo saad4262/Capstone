@@ -4,6 +4,8 @@ import 'package:capstone/core/bindings/onBarding_binding.dart';
 import 'package:capstone/core/bindings/splash_bindings.dart';
 import 'package:capstone/core/bindings/task_binding.dart';
 import 'package:capstone/core/routes/app_routes.dart';
+import 'package:capstone/presentation/views/dashboard_screen.dart';
+import 'package:capstone/presentation/views/forgetpass_screen.dart';
 import 'package:capstone/presentation/views/home.dart';
 import 'package:capstone/presentation/views/login_auth/login_screen.dart';
 import 'package:capstone/presentation/views/onboarding_screen.dart';
@@ -44,5 +46,17 @@ class AppPages {
       page: () => TaskScreen(),
       binding: TaskBinding(),
     ),
+    GetPage(
+      name: AppRoutes.forgetPassword,
+      page: () => ForgotPasswordScreen(),
+      binding: AuthBinding(),
+    ),
+
+    GetPage(
+      name: AppRoutes.taskStats,
+      page: () => DashboardScreen(),
+      binding: TaskBinding(),
+    ),
+
   ];
 }

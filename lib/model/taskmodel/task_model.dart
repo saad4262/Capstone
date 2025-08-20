@@ -11,14 +11,16 @@ abstract class Task with _$Task {
     @Default('') String userId,
     @Default('') String title,
     String? description,
-    @Default('') String assignedToUserEmail, // email of user to whom task is assigned
-
+    @Default('') String assignedToUserEmail,
+    @Default([]) List<String> favouriteByUsers,
     @Default('General') String category,
-    @Default('pending') String status, 
+    @Default('pending') String status,
     required DateTime startDate,
     required DateTime endDate,
     @TimestampConverter() required Timestamp createdAt,
     @TimestampConverter() required Timestamp updatedAt,
+    @Default([]) List<String> assignedUserTokens,
+    @Default(0) int position,
   }) = _Task;
 
   factory Task.fromJson(Map<String, dynamic> json) => _$TaskFromJson(json);

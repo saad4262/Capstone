@@ -10,4 +10,8 @@ class AppColors {
   static const grey = Colors.grey;
   static const lightgrey = Color.fromARGB(248, 237, 235, 235);
   static const bordergrey = Color.fromARGB(255, 224, 224, 224);
+  static const gradientStart = Color(0xff9C2CF3);
+  static const gradientEnd = Color(0xff3A49F9);
+  static const errorColor = Color.fromARGB(255, 177, 72, 72);
+  static const successColor = Color.fromARGB(255, 96, 191, 115);
 }

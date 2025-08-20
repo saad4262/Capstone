@@ -56,13 +56,16 @@ class OnboardingScreen extends StatelessWidget {
                         height: Responsive.height(30),
                       ),
                       SizedBox(height: Responsive.height(5)),
-                      Text(
-                        onboardingData[index]['title']!,
-                        style: TextStyle(
-                          fontSize: Responsive.fontSize(7),
-                          fontWeight: FontWeight.bold,
+                      Padding(
+                        padding: EdgeInsets.all(Responsive.padding(2)),
+                        child: Text(
+                          onboardingData[index]['title']!,
+                          style: TextStyle(
+                            fontSize: Responsive.fontSize(7),
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
-                        textAlign: TextAlign.center,
                       ),
                       SizedBox(height: Responsive.height(2)),
                       Padding(
@@ -88,7 +91,20 @@ class OnboardingScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(
+                  Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          AppColors.gradientStart,
+                          AppColors.gradientEnd,
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderRadius: BorderRadius.circular(
+                        Responsive.radius(Responsive.radius(8)),
+                      ),
+                    ),
                     width: Responsive.width(60),
                     height: Responsive.height(7),
                     child: ElevatedButton(
@@ -103,7 +119,7 @@ class OnboardingScreen extends StatelessWidget {
                         }
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.blueMain,
+                        backgroundColor: Colors.transparent,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(
                             Responsive.radius(30),
@@ -116,7 +132,7 @@ class OnboardingScreen extends StatelessWidget {
                       ),
                       child: Text(
                         controller.pageIndex.value == 2 ? "Finish" : "Next",
-                        style: TextStyle(color: AppColors.white),
+                        style: TextStyle(color: AppColors.white,fontFamily: "poppins"),
                       ),
                     ),
                   ),
@@ -128,9 +144,9 @@ class OnboardingScreen extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: controller.skip,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.secondaryBlue,
+                        backgroundColor: const Color.fromARGB(248, 207, 206, 206),
                         side: BorderSide(
-                          color: AppColors.blueMain,
+                          color: AppColors.bordergrey,
                           width: Responsive.width(0.4),
                         ),
                         shape: RoundedRectangleBorder(
@@ -145,7 +161,7 @@ class OnboardingScreen extends StatelessWidget {
                       ),
                       child: const Text(
                         "Skip",
-                        style: TextStyle(color: AppColors.blueMain),
+                        style: TextStyle(color: AppColors.black,fontFamily: "poppins"),
                       ),
                     ),
                   ),

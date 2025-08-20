@@ -34,4 +34,13 @@ class AuthRepository {
   Future<Auth?> login(String email, String password) {
     return _service.login(email, password);
   }
+
+   Future<void> logout() async {
+    await _service.logout();
+  }
+
+
+   Future<void> resetPassword(String email) {
+    return _service.sendPasswordResetEmail(email);
+  }
 }

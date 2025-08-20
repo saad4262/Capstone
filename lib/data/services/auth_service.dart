@@ -68,6 +68,15 @@ class FirebaseAuthService {
         .get();
     return Auth.fromFirestore(doc);
   }
+
+   Future<void> logout() async {
+    await _auth.signOut();
+  }
+
+
+   Future<void> sendPasswordResetEmail(String email) async {
+    await _auth.sendPasswordResetEmail(email: email);
+  }
 }
 
 
